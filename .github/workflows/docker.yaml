@@ -15,8 +15,8 @@ jobs:
     - name: package docker
       run: |
         VERSION=$(date +%s)
-        docker login docker.pkg.github.com --username ethomson --password ${{ secrets.GITHUB_TOKEN }}
-        docker build . --file Dockerfile --tag docker.pkg.github.com/ethomson/calculator/app:${VERSION}
-        docker push docker.pkg.github.com/ethomson/calculator/app:${VERSION}
+        docker login docker.pkg.github.com --username imjhanc --password hanhan9502
+        docker build . --file Dockerfile --tag docker.pkg.github.com/imjhanc/Calculator-node-js/app:${VERSION}
+        docker push docker.pkg.github.com/imjhanc/calculator-node-js/app:${VERSION}
       env:
         CI: true
