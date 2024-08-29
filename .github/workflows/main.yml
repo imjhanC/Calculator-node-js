@@ -30,5 +30,33 @@ jobs:
         npm test
       env:
         CI: true
+  deploy:
+    runs-on: ubuntu-latest
 
+      steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Docker
+        uses: docker/setup-buildx-action@v1
+
+      - name: Build and deploy
+        run: |
+          IMAGE_NAME="calculator-node-js"
+          CONTAINER_NAME="calculator-node-js"
+          PORT=3000
+
+          echo "Starting deployment process..."
+          echo "Building Docker image..."
+          docker build -t ${IMAGE_NAME}:staging .
+          echo "Stopping existing container (if any)..."
+          docker stop ${CONTAINER_NAME} 2>/dev/null || true
+
+          echo "Removing old container..."
+          docker rm ${CONTAINER_NAME} 2>/dev/null || true
+
+          echo "Running new container..."
+          docker run -d -p ${PORT}:${PORT} --name ${CONTAINER_NAME} ${IMAGE_NAME}:staging
+
+          echo "Deployment complete!"
         
