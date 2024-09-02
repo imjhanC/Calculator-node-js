@@ -59,3 +59,4 @@ jobs:
         docker stop calculator-node-js || true
         docker rm calculator-node-js || true
         docker run -d -p 3000:3000 --name calculator-node-js ${{ secrets.DOCKER_USERNAME }}/calculator-node-js:latest
+        
